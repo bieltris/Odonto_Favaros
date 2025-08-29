@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/login.css">
+    <title>Login - Favaros Odonto</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
     
     <section class="login-screen">
         <form class="form__login">
-            <input type="text" class="email-input">
-            <input type="text" class="senha-input">
-            <button>Entrar</button> 
+            <img src="assets/images/image.png" class="odonto-icon" alt="Odontologia Favaros">
+            <label for="email">E-mail:</label>
+            <input type="text" class="email form-control" id="email" placeholder="Digite seu E-mail">
+            <label for="senha">Senha:</label>
+            <input type="text" class="senha form-control" id="senha" placeholder="Digite sua senha">
+            <button type="button" class="login">Entrar</button> 
             <div class="outras-opcoes">
-                <input type="checkbox" class="keep-conected">
-                <button>Esqueceu a senha?</button>
+                <input type="checkbox" class="keep-conected form-check-input" id="keep-conected">
+                <label for="keep-conected" class="label-keep-conected form-check-label">Manter conectado?</label>
+                <button type="button" class="senha-perdida">Esqueceu a senha?</button>
             </div>
         </form>
     </section>

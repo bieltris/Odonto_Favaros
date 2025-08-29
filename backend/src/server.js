@@ -15,7 +15,8 @@ app.use(express.json());
 
 // Ativação das rotas.
 
-// app.use(express.static(path.join(__dirname, '../../frontend')));
+
+app.use(express.static(path.join(__dirname, '../../frontend')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/login.html'));
