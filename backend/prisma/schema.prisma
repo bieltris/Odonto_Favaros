@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,36 +7,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Paciente {
-  id        Int      @id @default(autoincrement())
-  nome      String
-  email     String   @unique 
-  telefone  String?  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Usuario {
+  id       Int    @id @default(autoincrement())
+  nome     String
+  perfil   Perfil @relation(fields: [perfilId], references: [id])
+  perfilId Int    @map("perfil_id")
+  email    String @unique @db.VarChar(30)
+  senha    String @db.VarChar(40)
+  telefone String @db.VarChar(20)
 
-  agendamentos Agendamento[] 
+  pacienteInfo       Paciente[] @relation("PacienteUsuario")
+  pacientesAtendidos Paciente[] @relation("DoutorPacientes")
+}
+
+model Paciente {
+  id           Int           @id @default(autoincrement())
+  usuario      Usuario       @relation("PacienteUsuario", fields: [usuarioId], references: [id])
+  usuarioId    Int           @map("paciente_id")
+  doutor       Usuario       @relation("DoutorPacientes", fields: [doutorId], references: [id])
+  doutorId     Int           @map("doutor_id")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  agendamentos Agendamento[]
 }
 
 model Procedimento {
-  id        Int      @id @default(autoincrement())
-  nome      String   @unique
+  id        Int     @id @default(autoincrement())
+  nome      String  @unique
   descricao String?
-  duracao   Int      
+  duracao   Int
   preco     Float
+  relatorio String  @db.Text
 
-  agendamentos Agendamento[] 
+  agendamentos Agendamento[]
 }
 
 model Agendamento {
   id        Int      @id @default(autoincrement())
-  dataHora  DateTime
+  doutor    String   @db.VarChar(20)
+  dataHora  DateTime @map("data_hora")
   status    String   @default("agendado")
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
-  paciente    Paciente     @relation(fields: [pacienteId], references: [id])
-  pacienteId  Int
+  paciente   Paciente @relation(fields: [pacienteId], references: [id])
+  pacienteId Int      @map("paciente_id")
 
-  procedimento Procedimento @relation(fields: [procedimentoId], references: [id])
-  procedimentoId Int
+  procedimento   Procedimento @relation(fields: [procedimentoId], references: [id])
+  procedimentoId Int          @map("procedimento_id")
+}
+
+model Perfil {
+  id   Int    @id @default(autoincrement())
+  nome String @unique @db.VarChar(20)
+
+  usuarios Usuario[]
 }
