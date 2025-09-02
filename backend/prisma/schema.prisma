@@ -14,7 +14,7 @@ model Usuario {
   perfilId Int    @map("perfil_id")
   email    String @unique @db.VarChar(30)
   senha    String @db.VarChar(40)
-  telefone String @db.VarChar(20)
+  telefone String? @db.VarChar(20)
 
   pacienteInfo       Paciente[] @relation("PacienteUsuario")
   pacientesAtendidos Paciente[] @relation("DoutorPacientes")

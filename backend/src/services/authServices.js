@@ -26,7 +26,7 @@ export const authenticateUser = async (email, password) => {
     const payload = {
         userId: user.id,
         name: user.nome,
-        perfilId: user.perfilId 
+        perfilId: user.perfilId
     };
 
     const jwtSecret = process.env.JWT_SECRET;
@@ -35,3 +35,15 @@ export const authenticateUser = async (email, password) => {
 
     return { success: true, token: token };
 };
+
+export const insertNewUser = async (dataUser) => {
+    const hashedPassword = await bcrypt.hash(dataUser.senha, 10);
+
+    const newUser = await prisma.usuario.create({
+        nome: dataUser.nome,
+        email: dataUser.email,
+        senha: hashedPassword
+    });
+
+    return {success: true, user: newUser};
+}

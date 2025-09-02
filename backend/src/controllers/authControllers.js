@@ -1,7 +1,7 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-import { autenticarUsuario } from '../routes/authRoutes.js';
+import { autenticarUsuario, insertNewUser } from '../routes/authRoutes.js';
 
 export const login = async (req, res) => {
     try {
@@ -10,14 +10,41 @@ export const login = async (req, res) => {
             return res.status(401).json({ error: 'E-mail ou Senha inválidos!' });
         }
 
-        const success = await autenticarUsuario(email, senha);
+        const login = await autenticarUsuario(email, senha);
 
-        if (success) {
-            res.status(201).json({ message: 'Logado com sucesso!' });
+        if (login.success) {
+            return res.status(201).json({ message: 'Logado com sucesso!' });
         } else {
             return res.status(401).json({ error: 'E-mail ou Senha inválidos!' });
         }
     } catch (e) {
         res.status(500).json({ error: 'Erro de rede, tente novamente mais tarde!' });
+        console.log('Erro function login: ' + e);
     }
+}
+
+export const cadastrarUser = async (req, res) => {
+    try {
+        const { nome, email, senha, senhaConfirmacao } = req.body;
+
+        if (!nome || !email || !senha || !senhaConfirmacao) {
+            res.status(401).json({ error: 'Preencha todos os campos!' });
+        }
+
+        if (senha != senhaConfirmacao) {
+            res.status(401).json({ error: 'As senhas não coincidem!' });
+        }
+
+        const insert = await insertNewUser({ nome, email, senha })
+
+        if (insert.success) {
+            return res.status(201).json({ message: 'Cadastrado com sucesso!' });
+        } else {
+            return res.status(401).json({ error: 'Falha ao cadastrar usuario!' });
+        }
+    } catch (e) {
+        res.status(500).json({ error: 'Erro de rede, tente novamente mais tarde!' });
+        console.log('Erro function cadastrarUser: ' + e);
+    }
+
 }
