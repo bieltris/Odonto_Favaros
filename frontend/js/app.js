@@ -1,5 +1,6 @@
-import { trocarFormulario } from "./login.js";
+import { trocarFormulario, fazerLogin } from "./login.js";
 
+export const path = 'http://localhost:8000/api';
 
 document.addEventListener('DOMContentLoaded', (e) => {
     document.body.addEventListener('click', (e) => {
@@ -7,6 +8,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
         if(target.closest('.sign-up-js')) {
             trocarFormulario(target);
+        }
+
+        if(target.closest('.login')) {
+            fazerLogin(target);
         }
     });
 });

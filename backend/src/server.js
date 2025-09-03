@@ -15,7 +15,7 @@ app.use(express.json());
 
 // Ativação das rotas.
 
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use(express.static(path.join(__dirname, '../../frontend')));
 
