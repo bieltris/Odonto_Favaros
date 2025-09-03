@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url'; 
 
 // Importação das rotas.
-
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 const PORT = 8000;
@@ -14,6 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 // Ativação das rotas.
+
+app.use('/auth', authRoutes);
 
 app.use(express.static(path.join(__dirname, '../../frontend')));
 

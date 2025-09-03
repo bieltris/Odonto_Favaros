@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 
-export const authenticateUser = async (email, password) => {
+export const autenticarUsuario = async (email, password) => {
 
     const user = await prisma.usuario.findUnique({
         where: {
