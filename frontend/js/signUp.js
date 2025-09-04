@@ -20,9 +20,9 @@ export const fazerCadastro = (target) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dadosSignUp),
-    }).then((response) => {
+    }).then(async (response) => {
         if (!response.ok) {
-            throw response.json().then(err => {
+            throw await response.json().then(err => {
                 return new Error(err.error);
             })
         }
@@ -33,6 +33,6 @@ export const fazerCadastro = (target) => {
             console.log('Usuario cadastrado com Sucesso!');
         })
         .catch((error) => {
-            console.error('Error: ' + error);
+            console.error(error);
         });
 }

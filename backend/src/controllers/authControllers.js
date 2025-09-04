@@ -1,7 +1,7 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-import { autenticarUsuario, insertNewUser } from '../services/authServices.js';
+import { autenticarUsuario, insertNewUser, usuarioJaExiste } from '../services/authServices.js';
 
 export const login = async (req, res) => {
     try {
@@ -13,7 +13,7 @@ export const login = async (req, res) => {
         const login = await autenticarUsuario(email, senha);
 
         if (login.success) {
-            return res.status(201).json({ message: 'Logado com sucesso!', token: login.token});
+            return res.status(201).json({ message: 'Logado com sucesso!', token: login.token });
         } else {
             return res.status(400).json({ error: 'E-mail ou Senha inválidos!' });
         }
@@ -28,11 +28,17 @@ export const cadastrarUser = async (req, res) => {
         const { nome, email, senha, senhaConfirmacao } = req.body;
 
         if (!nome || !email || !senha || !senhaConfirmacao) {
-            res.status(402).json({ error: 'Preencha todos os campos!' });
+            res.status(400).json({ error: 'Preencha todos os campos!' });
         }
-        
+
         if (senha != senhaConfirmacao) {
-            res.status(402).json({ error: 'As senhas não coincidem!' });
+            res.status(400).json({ error: 'As senhas não coincidem!' });
+        }
+
+        const userExist = await usuarioJaExiste(email);
+
+        if (userExist) {
+            res.status(400).json({ error: 'E-mail, já está em uso!' });
         }
 
         const insert = await insertNewUser({ nome, email, senha })
@@ -40,7 +46,7 @@ export const cadastrarUser = async (req, res) => {
         if (insert.success) {
             return res.status(201).json({ message: 'Cadastrado com sucesso!' });
         } else {
-            return res.status(401).json({ error: 'Falha ao cadastrar usuario!' });
+            return res.status(400).json({ error: 'Falha ao cadastrar usuario!' });
         }
     } catch (e) {
         res.status(500).json({ error: 'Erro de rede, tente novamente mais tarde!' });

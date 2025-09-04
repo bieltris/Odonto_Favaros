@@ -49,3 +49,17 @@ export const insertNewUser = async (dataUser) => {
 
     return { success: true, user: newUser };
 }
+
+export const usuarioJaExiste = async (email) => {
+    const user = await prisma.usuario.findUnique({
+        where: {
+            email: email
+        }
+    })
+
+    if(user) {
+        return true;
+    } else {
+        return false;
+    }
+}

@@ -29,9 +29,9 @@ export const fazerLogin = (target) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dadosLogin),
-    }).then((response) => {
+    }).then(async (response) => {
         if (!response.ok) {
-            throw response.json().then(err => {
+            throw await response.json().then(err => {
                 return new Error(err.error);
             })
         }
