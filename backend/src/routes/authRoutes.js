@@ -4,6 +4,6 @@ import { login, cadastrarUser } from '../controllers/authControllers.js';
 
 routes.post('/login', login);
 
-routes.post('/sing-up', cadastrarUser);
+routes.post('/sign-up', cadastrarUser);
 
 export default routes;

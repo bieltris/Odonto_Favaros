@@ -28,11 +28,11 @@ export const cadastrarUser = async (req, res) => {
         const { nome, email, senha, senhaConfirmacao } = req.body;
 
         if (!nome || !email || !senha || !senhaConfirmacao) {
-            res.status(401).json({ error: 'Preencha todos os campos!' });
+            res.status(402).json({ error: 'Preencha todos os campos!' });
         }
-
+        
         if (senha != senhaConfirmacao) {
-            res.status(401).json({ error: 'As senhas não coincidem!' });
+            res.status(402).json({ error: 'As senhas não coincidem!' });
         }
 
         const insert = await insertNewUser({ nome, email, senha })

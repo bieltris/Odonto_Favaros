@@ -48,10 +48,20 @@ body {
 }
 
 .email, .senha, .nome {
-background-color: #d6d8fcb0 !important;
+    background-color: #d6d8fcb0 !important;
 }
 
 .login {
+    margin: 20px 0 20px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(0, 60, 255);
+    color: white;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.sign-up-api {
     margin: 20px 0 20px 0;
     border: none;
     border-radius: 5px;
@@ -75,7 +85,7 @@ background-color: #d6d8fcb0 !important;
     justify-content: space-between;
 }
 
-.keep-conected{
+.keep-conected {
     margin-top: 0 !important;
 }
 
@@ -96,7 +106,7 @@ background-color: #d6d8fcb0 !important;
 }
 
 .sign-up {
-    font-size: 11px;   
+    font-size: 11px;
     margin: 10px 0 5px 0;
     cursor: pointer;
 }
@@ -106,7 +116,7 @@ background-color: #d6d8fcb0 !important;
 
 @media (max-width: 768px) {
     .login-screen {
-    padding: 20px 10px;
-    width: 320px;
-}
+        padding: 20px 10px;
+        width: 320px;
+    }
 }
