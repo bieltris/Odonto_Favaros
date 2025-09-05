@@ -7,6 +7,7 @@ export const login = async (req, res) => {
     try {
         const { email, senha } = req.body;
         if (!email || !senha) {
+            console.log('Email ou senha vazios!');
             return res.status(403).json({ error: 'E-mail ou Senha inválidos!' });
         }
 
@@ -15,6 +16,7 @@ export const login = async (req, res) => {
         if (login.success) {
             return res.status(201).json({ message: 'Logado com sucesso!', token: login.token });
         } else {
+            console.log('Email ou senha incorretos!');
             return res.status(400).json({ error: 'E-mail ou Senha inválidos!' });
         }
     } catch (e) {

@@ -13,7 +13,7 @@ model Usuario {
   perfil   Perfil @relation(fields: [perfilId], references: [id])
   perfilId Int    @default(1) @map("perfil_id") 
   email    String @unique @db.VarChar(30)
-  senha    String @db.VarChar(40)
+  senha    String @db.VarChar(255) 
   telefone String? @db.VarChar(20)
 
   pacienteInfo       Paciente[] @relation("PacienteUsuario")

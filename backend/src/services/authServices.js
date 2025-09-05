@@ -16,7 +16,7 @@ export const autenticarUsuario = async (email, password) => {
     if (!user) {
         return { success: false, error: "E-mail ou Senha inválidos!" };
     }
-
+    console.log(user.senha.length);
     const isPasswordValid = await bcrypt.compare(password, user.senha);
 
     if (!isPasswordValid) {
@@ -58,7 +58,7 @@ export const usuarioJaExiste = async (email) => {
     })
 
     if(user) {
-        return true;
+        return user;
     } else {
         return false;
     }

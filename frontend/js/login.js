@@ -42,7 +42,7 @@ export const fazerLogin = (target) => {
         redirectHomeScreen();
     })
     .catch((error) => {
-        console.error('Error: ' + error);
+        console.error(error);
     });
 }
 
