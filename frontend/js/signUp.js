@@ -1,5 +1,5 @@
 import { path } from './app.js';
-
+import { trocarFormulario } from './login.js';
 
 export const fazerCadastro = (target) => {
     const form = target.closest('form');
@@ -31,6 +31,8 @@ export const fazerCadastro = (target) => {
     })
         .then((data) => {
             console.log('Usuario cadastrado com Sucesso!');
+            const linkFazerLogin = document.getElementById('fazer-login');
+            trocarFormulario(linkFazerLogin);
         })
         .catch((error) => {
             console.error(error);

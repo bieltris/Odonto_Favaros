@@ -46,6 +46,9 @@ export const fazerLogin = (target) => {
     });
 }
 
+const pathFilesStatic = 'http://localhost:8000'
 export const redirectHomeScreen = () => {
     console.log('Login com sucesso!');
+
+    window.location.href = `${pathFilesStatic}/home.html`;
 }
