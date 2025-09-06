@@ -32,3 +32,13 @@ header {
 h4 {
     margin: 0;
 }
+.snack {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+}
+
+.show-msg {
+
+}
