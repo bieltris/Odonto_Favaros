@@ -24,8 +24,7 @@ export const autenticarUsuario = async (email, password) => {
     }
 
     const payload = {
-        userId: user.id,
-        name: user.nome,
+        id: user.id,
         perfilId: user.perfilId
     };
 

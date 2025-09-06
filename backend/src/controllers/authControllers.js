@@ -11,13 +11,20 @@ export const login = async (req, res) => {
             return res.status(403).json({ error: 'E-mail ou Senha inválidos!' });
         }
 
-        const login = await autenticarUsuario(email, senha);
+        const authResult = await autenticarUsuario(email, senha);
 
-        if (login.success) {
-            return res.status(201).json({ message: 'Logado com sucesso!', token: login.token });
+        if (authResult.success) {
+            res.cookie('authToken', authResult.token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: 3600000,
+            });
+
+            return res.status(201).json({ message: 'Logado com sucesso!' });
         } else {
             console.log('Email ou senha incorretos!');
-            return res.status(400).json({ error: 'E-mail ou Senha inválidos!' });
+            return res.status(401).json({ error: 'E-mail ou Senha inválidos!' });
         }
     } catch (e) {
         res.status(500).json({ error: 'Erro de rede, tente novamente mais tarde!' });

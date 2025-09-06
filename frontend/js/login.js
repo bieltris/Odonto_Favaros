@@ -29,6 +29,7 @@ export const fazerLogin = (target) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dadosLogin),
+        credentials: 'include'
     }).then(async (response) => {
         if (!response.ok) {
             throw await response.json().then(err => {
@@ -38,17 +39,17 @@ export const fazerLogin = (target) => {
 
         return response.json();
     })
-    .then((data) => {
-        redirectHomeScreen();
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+        .then((data) => {
+            redirectHomeScreen();
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 }
 
 const pathFilesStatic = 'http://localhost:8000'
 export const redirectHomeScreen = () => {
     console.log('Login com sucesso!');
 
-    window.location.href = `${pathFilesStatic}/home.html`;
+    window.location.href = `${pathFilesStatic}/protected/home.html`;
 }
