@@ -14,7 +14,7 @@ body {
     padding: 0;
     height: 100vh;
     width: 100vw;
-    background:  rgb(96, 165, 255);
+    background:  rgb(197, 222, 255);
     box-shadow: 0px 4px 4px 0 gray;
 }
 
@@ -32,6 +32,8 @@ header {
 h4 {
     margin: 0;
 }
+
+
 .snack {
     position: fixed;
     bottom: 0;

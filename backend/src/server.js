@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 
 // Importação das rotas.
 import authRoutes from './routes/authRoutes.js';
+import { checkAuth, checkAdmin } from './middleware/authMiddleware.js';
 
 const app = express();
 const PORT = 8000;
@@ -14,7 +15,6 @@ app.use(cors());
 app.use(express.json());
 
 // Ativação das rotas.
-
 app.use('/api/auth', authRoutes);
 
 app.use(express.static(path.join(__dirname, '../../frontend')));
@@ -23,6 +23,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/login.html'));
 })
 
+app.use(checkAuth);
+
+app.get('/api/home', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/protected/home.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor da API de comentários rodando em http://localhost:${PORT}`);
